@@ -1,0 +1,18 @@
+根文件系统兼容性推荐：FAT、ext2
+
+Linux文件系统兼容性推荐：ext2、FAT
+
+UEFI 强制要求 ESP 分区是 FAT32 格式
+
+待办事项：
+1、Tiny Core Linux
+2、mylinux-minimal
+3、TeenyLinux
+4、SliTaz GNU/Linux
+5、Dumpster OS
+6、Damn Small Linux
+7、Alpine Linux
+8、Porteus
+9、antiX
+10、Buildroot
+11、Yocto Project
