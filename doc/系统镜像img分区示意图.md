@@ -5,7 +5,7 @@ Linux文件系统兼容性推荐：ext2、FAT。
 UEFI 强制要求 ESP 分区是 FAT32 格式。
 
 下图是一块 GPT 分区表的磁盘，从左到右为磁盘 LBA 扇区递增方向，同时支持两种启动模式，Legacy 引导仅使用左侧的「保护性 MBR + BIOS boot 分区」，完全不触碰 ESP 分区。
-```
+```mermaid
 graph LR
     A[LBA 0<br>保护性 MBR<br>512 字节<br>存放 GRUB stage1] --> B[BIOS boot 分区<br>1 MB<br>无文件系统<br>存放 GRUB core.img]
     B --> C[ESP 分区<br>32 MB<br>FAT32<br>仅 UEFI 模式使用]
