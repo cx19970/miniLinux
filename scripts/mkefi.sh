@@ -12,13 +12,6 @@ set -eu
 . "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/common.sh"
 load_image_conf_from_args "$@"
 
-# [full|mini] full: all modules, mini: only essential modules for booting
-: "${EFI_BUILD_MODE:=mini}"
-case "$EFI_BUILD_MODE" in
-    full|mini) ;;
-    *) die "EFI_BUILD_MODE must be full or mini (got: $EFI_BUILD_MODE)" ;;
-esac
-
 if [ "$GRUB_VERSION" = grub ]; then
     info "GRUB_VERSION=grub: skip UEFI image (GRUB Legacy is BIOS only)"
     exit 0

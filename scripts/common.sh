@@ -61,14 +61,18 @@ load_image_conf() {
     : "${ESP_TYPE:=ef}"
     : "${BOOT_TYPE:=83}"
     : "${GRUB_VERSION:=grub2}"
-    : "${EFI_BUILD_MODE:=mini}"
+    : "${EFI_BUILD_MODE:=comm}"
+    case "$ARCH" in
+        amd64) ;;
+        *) die "ARCH must be amd64 (got: $ARCH)" ;;
+    esac
     case "$GRUB_VERSION" in
         grub|grub2) ;;
         *) die "GRUB_VERSION must be grub or grub2 (got: $GRUB_VERSION)" ;;
     esac
     case "$EFI_BUILD_MODE" in
-        full|mini) ;;
-        *) die "EFI_BUILD_MODE must be full or mini (got: $EFI_BUILD_MODE)" ;;
+        full|comm) ;;
+        *) die "EFI_BUILD_MODE must be full or comm (got: $EFI_BUILD_MODE)" ;;
     esac
     ARCH_DIR="$ROOT/arch/$ARCH"
     KERNEL_DIR="$ARCH_DIR/kernel"
