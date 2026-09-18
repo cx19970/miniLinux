@@ -9,6 +9,13 @@ set -eu
 . "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/common.sh"
 load_image_conf_from_args "$@"
 
+# [full|comm] full: all modules, comm: only essential modules for booting
+: "${EFI_BUILD_MODE:=comm}"
+case "$EFI_BUILD_MODE" in
+    full|comm) ;;
+    *) die "EFI_BUILD_MODE must be full or comm (got: $EFI_BUILD_MODE)" ;;
+esac
+
 if [ "$GRUB_VERSION" = grub ]; then
     info "GRUB_VERSION=grub: skip UEFI image (GRUB Legacy is BIOS only)"
     exit 0
@@ -17,10 +24,10 @@ fi
 EFI_OUT="$GRUB2_DIR/EFI/BOOT/BOOTX64.EFI"
 mkdir -p "$GRUB2_DIR/EFI/BOOT"
 
-if [ -f "$EFI_OUT" ]; then
-    info "keep existing $EFI_OUT"
-    exit 0
-fi
+# if [ -f "$EFI_OUT" ]; then
+#     info "keep existing $EFI_OUT"
+#     exit 0
+# fi
 
 need_cmd grub-mkimage
 [ -f "$GRUB2_DIR/early-efi.cfg" ] || die "missing $GRUB2_DIR/early-efi.cfg"
@@ -48,6 +55,7 @@ MODULES="$MODULES search search_fs_file search_fs_uuid search_label"
 MODULES="$MODULES normal boot linux linux16 multiboot multiboot2 configfile"
 MODULES="$MODULES echo ls test minicmd cat sleep true eval help hexdump read regexp"
 # GRUB2 modules (but less used)
+if [ "$EFI_BUILD_MODE" = "full" ]; then
 MODULES="$MODULES chain loopback memdisk blocklist probe loadenv syslinuxcfg legacycfg"
 MODULES="$MODULES disk diskfilter lvm ldm mdraid09 mdraid09_be mdraid1x"
 MODULES="$MODULES raid5rec raid6rec dm_nv scsi ata ahci pata nativedisk offsetio"
@@ -76,7 +84,7 @@ MODULES="$MODULES archelp extcmd setjmp random priority_queue blsuki bli"
 MODULES="$MODULES appleldr aout bsd macho xnu xnu_uuid loadbios macbless"
 MODULES="$MODULES cbtable cbls cbmemc cbtime cs5536"
 MODULES="$MODULES parttool hello morse spkmodem trig"
-
+fi
 
 # Build EFI/BOOT/BOOTX64.EFI with grub-mkimage.
 # MODULES is the list of modules to build the EFI image.
