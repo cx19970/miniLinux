@@ -472,7 +472,7 @@ install_grub2_bios() {
     mkdir -p "$OUT_DIR/cache"
     MODULES="biosdisk part_msdos fat ext2 search search_fs_file search_fs_uuid search_label"
     MODULES="$MODULES normal boot linux configfile echo ls test minicmd cat sleep"
-    grub-mkimage -O i386-pc -d "$moddir" -c "$GRUB2_DIR/early-efi.cfg" -o "$core" $MODULES
+    grub-mkimage -O i386-pc -d "$moddir" -p /grub -c "$GRUB2_DIR/early-efi.cfg" -o "$core" $MODULES
 
     core_bytes=$(wc -c < "$core")
     max=$(((GAP_SECTORS - 1) * 512))

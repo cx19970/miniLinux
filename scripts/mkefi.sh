@@ -81,7 +81,8 @@ MODULES="$MODULES parttool hello morse spkmodem trig"
 # Build EFI/BOOT/BOOTX64.EFI with grub-mkimage.
 # MODULES is the list of modules to build the EFI image.
 # The modules contained in MODULES will be packaged into EFI.
-if ! grub-mkimage -O x86_64-efi -d "$MODDIR" -c "$GRUB2_DIR/early-efi.cfg" \
+# The image prefix must match the runtime layout used by early-efi.cfg and the boot partition.
+if ! grub-mkimage -O x86_64-efi -d "$MODDIR" -p /grub -c "$GRUB2_DIR/early-efi.cfg" \
     -o "$EFI_OUT" $MODULES; then
     die "grub-mkimage failed (module/host version mismatch?). Place BOOTX64.EFI at $EFI_OUT"
 fi
