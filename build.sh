@@ -19,7 +19,6 @@ case "${1:-}" in
         ;;
 esac
 
-sh "$SCRIPTS/permission.sh"
 sh "$SCRIPTS/mkinitramfs.sh" "$@"
 sh "$SCRIPTS/mkefi.sh" "$@"
 sh "$SCRIPTS/mkimg.sh" "$@"

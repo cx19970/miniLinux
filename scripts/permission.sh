@@ -11,13 +11,13 @@
 # override table). Symlinks and generated *.cpio.gz archives are skipped.
 #
 # Type defaults (no +x, no file(1)):
-#   directory                              0755
-#   symlink                                skip
-#   ELF \x7fELF (ET_EXEC / ET_DYN / ET_REL) 0755  bins, PIE, .so, grub .mod
-#   shebang #!                             0755
-#   .sh .bash .ksh .zsh .dash .csh .tcsh .py  0755
-#   .mod                                   0755
-#   other regular files                    0644
+#   directory                                 0755
+#   symlink                                   0777
+#   ELF                                       0755
+#   shebang #!                                0755
+#   script                                    0755
+#   .mod                                      0755
+#   other regular files                       0644
 # Static .a, PE/EFI, bzImage, ARM64 Image: exact paths in PERM_OVERRIDES.
 
 set -eu
