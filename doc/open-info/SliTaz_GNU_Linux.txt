@@ -1,0 +1,6 @@
+**完整 Live 系统，全部运行在 RAM，自带图形桌面，ISO 仅～50MB**，无 systemd，BusyBox 作为基础。
+
+1. **tiny‑slitaz 仓库**：PHP 网页、前端页面、后端 helper 脚本（在线构建 WebUI），**没有内核 / BusyBox 编译脚本**。
+
+2. **wok‑tiny(hg)**：真正底层配方仓库，`base‑tiny` 基础包：uClibc + BusyBox + 最小目录树、init 脚本、基础配置文件。
+

@@ -1,0 +1,8 @@
+为适配只认固定路径的厂商固件，把同一份（或该机需要的）EFI 可执行文件放到 ESP 上已知路径。
+
+源码树（全部打进 img 的 ESP）：
+
+    arch/amd64/grub2/EFI/BOOT/BOOTX64.EFI     规范可移动介质默认路径，优先保留
+    arch/amd64/grub2/EFI/<厂商>/<规定名>.efi  与该机固件查找路径一致
+
+mkimg.sh 将 EFI/ 目录整棵拷到 ESP 根下，得到 \EFI\... 。不要把文件只放在 EFI/BOOT 并随便改名（如 boota.efi），规范默认只执行 BOOTX64.EFI。

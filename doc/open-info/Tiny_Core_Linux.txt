@@ -1,0 +1,14 @@
+Tiny Core Linux 官方原生只发行 x86（32 位）和 x86_64（64 位）两个架构的版本，仅针对 PC / 虚拟机的 x86 平台；
+但社区有成熟的 ARM 架构移植（官方认可），也有少量 RISC-V 等其他架构的第三方实验性衍生版。
+
+Tiny Core Linux 是二进制形式发布，并提供超多的 tcz 扩展安装包，官网上 tcz 包有 2788 个。
+
+主要仓库：
+- **Core‑scripts**：系统启动、初始化、备份恢复核心脚本（core.gz 内脚本）
+- **tinyx**：轻量 Xvesa/Xfbdev X Server
+- **flwm**：默认窗口管理器
+- **fltk_projects**：桌面工具 wbar、flpicsee 等
+- **dCore‑scripts**：dCore（Debian 兼容版）脚本
+
+https://github.com/tinycorelinux/Core-scripts
+

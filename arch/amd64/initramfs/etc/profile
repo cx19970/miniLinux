@@ -1,0 +1,8 @@
+# shell profile for the initramfs root
+umask 022
+export PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+HOME="${HOME:-/root}"
+export HOME
+mkdir -p "$HOME" 2>/dev/null || true
+PS1='[\u@\h:\w]# '
+export PS1

@@ -1,0 +1,6 @@
+**面向安全、容器、嵌入式的通用轻量发行版**，现实生产大规模使用。
+
+- libc：**musl‑libc**（标志性，区别 glibc）
+- 用户空间基础：BusyBox
+- Init：**OpenRC**，**无 systemd**
+

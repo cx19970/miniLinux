@@ -1,3 +1,5 @@
 ~$*
 .$*
 
+# Build output and download cache
+out/
