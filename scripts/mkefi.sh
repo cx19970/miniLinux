@@ -4,16 +4,19 @@
 # Usage: scripts/mkefi.sh [-c|--config FILE]
 # Module dir: arch/$ARCH/grub2/x86_64-efi, else /usr/lib/grub/x86_64-efi.
 
+# shellcheck disable=SC2173
+trap '' SIGINT
+
 set -eu
 
 . "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/common.sh"
 load_image_conf_from_args "$@"
 
-# [full|comm] full: all modules, comm: only essential modules for booting
-: "${EFI_BUILD_MODE:=comm}"
+# [full|mini] full: all modules, mini: only essential modules for booting
+: "${EFI_BUILD_MODE:=mini}"
 case "$EFI_BUILD_MODE" in
-    full|comm) ;;
-    *) die "EFI_BUILD_MODE must be full or comm (got: $EFI_BUILD_MODE)" ;;
+    full|mini) ;;
+    *) die "EFI_BUILD_MODE must be full or mini (got: $EFI_BUILD_MODE)" ;;
 esac
 
 if [ "$GRUB_VERSION" = grub ]; then

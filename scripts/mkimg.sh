@@ -16,6 +16,9 @@
 #   grub:  host grub-legacy (grub --batch setup); never dd stage1 alone
 # Loop-device access requires root or sudo.
 
+# shellcheck disable=SC2173
+trap '' SIGINT
+
 set -eu
 
 . "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/common.sh"

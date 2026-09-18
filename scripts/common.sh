@@ -56,14 +56,19 @@ load_image_conf() {
     : "${GAP_MIB:=1}"
     : "${ESP_SIZE_MIB:=8}"
     : "${BOOT_SIZE_MIB:=40}"
-    : "${ESP_LABEL:=MINLINUXESP}"
-    : "${BOOT_LABEL:=MINILINUXBOOT}"
+    : "${ESP_LABEL:=ESP}"
+    : "${BOOT_LABEL:=BOOT}"
     : "${ESP_TYPE:=ef}"
     : "${BOOT_TYPE:=83}"
     : "${GRUB_VERSION:=grub2}"
+    : "${EFI_BUILD_MODE:=mini}"
     case "$GRUB_VERSION" in
         grub|grub2) ;;
         *) die "GRUB_VERSION must be grub or grub2 (got: $GRUB_VERSION)" ;;
+    esac
+    case "$EFI_BUILD_MODE" in
+        full|mini) ;;
+        *) die "EFI_BUILD_MODE must be full or mini (got: $EFI_BUILD_MODE)" ;;
     esac
     ARCH_DIR="$ROOT/arch/$ARCH"
     KERNEL_DIR="$ARCH_DIR/kernel"

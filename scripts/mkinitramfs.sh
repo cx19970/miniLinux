@@ -2,6 +2,9 @@
 # Pack arch/$ARCH/initramfs into initramfs.cpio.gz
 # Usage: scripts/mkinitramfs.sh [-c|--config FILE]
 
+# shellcheck disable=SC2173
+trap '' SIGINT
+
 set -eu
 
 . "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/common.sh"
