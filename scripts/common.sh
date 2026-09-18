@@ -47,10 +47,17 @@ load_image_conf() {
     [ -f "$conf" ] || die "missing config: $conf"
     IMAGE_CONF="$conf"
     info "config $IMAGE_CONF"
+
+    # allexport: All assigned variables are automatically marked as export
     set -a
     # shellcheck disable=SC1091
     . "$conf"
+    # Restore to default, variables are no longer automatically exported
     set +a
+
+    # bash null command
+    # If this variable has already been set in the configuration file, 
+    # the value in the configuration file will be retained and not overwritten.
     : "${ARCH:=amd64}"
     : "${IMAGE_NAME:=minilinux-amd64.img}"
     : "${GAP_MIB:=1}"
@@ -74,6 +81,7 @@ load_image_conf() {
         full|comm) ;;
         *) die "EFI_BUILD_MODE must be full or comm (got: $EFI_BUILD_MODE)" ;;
     esac
+
     ARCH_DIR="$ROOT/arch/$ARCH"
     KERNEL_DIR="$ARCH_DIR/kernel"
     GRUB1_DIR="$ARCH_DIR/grub"

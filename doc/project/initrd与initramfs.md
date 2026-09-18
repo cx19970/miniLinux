@@ -13,7 +13,7 @@ GRUB 的 `initrd` 会把文件交给内核；内核看到 **newc cpio** 就当 i
 本仓库源树是 `arch/amd64/initramfs/`（FHS 根）。`scripts/mkinitramfs.sh` 打成 `initramfs.cpio.gz`，不打 `README.txt`、`.gitkeep` 和这份归档自身。启动后停在 initramfs 里的 busybox sh，本阶段不切根。
 
 运行时：
-- 程序：Alpine **静态** busybox（`bin/busybox`），不引入 musl `.so`。打包时按 `busybox --list-full` 在 FHS 路径上建 applet 符号链接；树上已有的真实文件（GNU wget、kmod、e2fsck 等）不会被覆盖。
+- 程序：Alpine **静态** busybox（`bin/busybox`），不引入 musl `.so`。applet 符号链接由 `init` 在**启动时**按 `busybox --list-full` 建在 FHS 路径上；树上已有的真实文件（GNU wget、kmod、e2fsck 等）不会被覆盖。打包时（`scripts/mkinitramfs.sh`）绝不执行目标架构的 busybox —— 交叉编译环境下它在构建主机上跑不起来，所以 busybox 只在运行时被调用。
 - 对齐参考目录能力的独立程序（bash、jq、parted、udevadm、rsync、cryptsetup、e2fsprogs、ethtool、fdisk/sfdisk、btrfs/squashfs/reiserfs 工具、wget/wput 等）从 **Ubuntu 22.04** deb 取出；`parser` 来自参考树。Alpine 里多数 `*-static` 只是 `.a`，动态 Alpine 程序依赖 musl，不能与 Ubuntu glibc 混放。
 - 动态库：Ubuntu 22.04 的 `libc6`、`libgcc-s1`、`libstdc++6` 以及上述程序的 `.so`（libblkid、libudev、libpam、libcrypto 等），按发行版路径放在 `lib/`、`lib64/`、`usr/lib/`。
 - 构建不联网；`scripts/fetch-initramfs-extras.sh` 可一次性从缓存或开源仓库 drop-in，不绑进 `build.sh`。

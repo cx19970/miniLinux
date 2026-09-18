@@ -10,8 +10,10 @@ FHS tree packed as the initramfs root.
 Drop binaries and libraries into the matching directories. Do not add
 Alpine musl .so files (they conflict with Ubuntu glibc).
 
-BusyBox applets (ls, mount, getty, mdev, ...) are created at pack time by
-scripts/mkinitramfs.sh from `busybox --list-full`. Real files already in the
+BusyBox applets (ls, mount, getty, mdev, ...) are turned into FHS symlinks
+at boot by `init`, from `busybox --list-full`. They are deliberately not
+created at pack time: scripts/mkinitramfs.sh may run on a host that cannot
+execute the target-arch busybox (cross-compile). Real files already in the
 tree are not overwritten, so GNU wget / kmod / e2fsck win over applets.
 
 Sources (drop in; build.sh does not download):
